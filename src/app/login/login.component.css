@@ -1,0 +1,33 @@
+.login-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.logo-container {
+  text-align: center;
+  img {
+    margin-bottom: 2rem;
+    width: 150px;
+    border-radius: 50%;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.261);
+  }
+}
+
+.login-form {
+  width: 100%;
+  max-width: 400px;
+}
+
+.p-card {
+  padding: 2rem;
+}
+
+.p-field {
+  margin-bottom: 1rem;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  grid-gap: 1rem;
+}

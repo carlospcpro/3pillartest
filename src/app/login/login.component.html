@@ -1,0 +1,36 @@
+<div class="login-container">
+  <div class="login-main-container">
+    <div class="logo-container">
+      <img src="img/logo.jpg" alt="" />
+    </div>
+    <p-card header="Login">
+      <div class="login-form">
+        <form (ngSubmit)="login()">
+          <div class="p-field">
+            <label for="username">Username</label>
+            <input
+              id="username"
+              pInputText
+              [(ngModel)]="username"
+              name="username"
+              required
+            />
+          </div>
+          <div class="p-field">
+            <label for="password">Password</label>
+            <p-password
+              id="password"
+              [(ngModel)]="password"
+              name="password"
+              toggleMask="true"
+              required
+            ></p-password>
+          </div>
+          <div class="p-field">
+            <p-button label="Login" type="submit"></p-button>
+          </div>
+        </form>
+      </div>
+    </p-card>
+  </div>
+</div>
