@@ -19,6 +19,7 @@
     "@angular/platform-browser-dynamic": "~18.1.0",
     "@angular/router": "~18.1.0",
     "@ngxs/devtools-plugin": "^18.0.0",
+    "@ngxs/logger-plugin": "^18.0.0",
     "@ngxs/store": "^18.0.0",
     "@nx/angular": "19.5.3",
     "firebase": "^10.12.4",

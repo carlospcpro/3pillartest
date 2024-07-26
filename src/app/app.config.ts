@@ -1,4 +1,3 @@
-import { getAuth, provideAuth } from '@angular/fire/auth';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import {
   ApplicationConfig,
