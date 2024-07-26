@@ -36,6 +36,7 @@ export class UsersComponent implements OnInit {
   columns: any[] = [];
   data: any[] = [];
   userForm!: FormGroup;
+  isEditing = false;
 
   confirm2(event: Event, rowData: any) {
     this.confirmationService.confirm({
@@ -88,25 +89,33 @@ export class UsersComponent implements OnInit {
   visible = false;
 
   showDialog(user?: any) {
-    console.log('user', user);
-
     if (user) {
+      this.isEditing = true;
       this.userForm.setValue(user);
     } else {
-      // this.userForm.reset();
+      this.isEditing = false;
     }
     this.visible = true;
   }
 
   hideDialog() {
     this.visible = false;
+    this.userForm.reset();
   }
 
   saveUser() {
     console.log('this.userForm.value', this.userForm.value);
-
-    this.addDocument('users', this.userForm.value);
-    this.hideDialog();
+    if (this.isEditing) {
+      this.updateDocument(
+        'users',
+        String(this.userForm.value.id),
+        this.userForm.value
+      );
+      this.hideDialog();
+    } else {
+      this.addDocument('users', this.userForm.value);
+      this.hideDialog();
+    }
   }
 
   editUser(user: any) {
@@ -130,5 +139,11 @@ export class UsersComponent implements OnInit {
     const id = this.firestore.createId();
     document.id = id;
     return this.firestore.collection(collectionName).doc(id).set(document);
+  }
+
+  updateDocument(collectionName: string, id: string, data: any): Promise<void> {
+    console.log(collectionName, id, data);
+
+    return this.firestore.collection(collectionName).doc(id).update(data);
   }
 }

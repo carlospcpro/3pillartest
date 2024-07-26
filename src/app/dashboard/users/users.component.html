@@ -31,18 +31,18 @@
 <p-button
   icon="pi pi-plus"
   (click)="showDialog()"
+  label="Add user"
   class="p-button-rounded p-button-success p-mr-2"
 />
 
 <p-confirmDialog />
 
 <p-dialog
-  header="Edit Profile"
+  header="User form"
   [modal]="true"
   [(visible)]="visible"
   [style]="{ width: '25rem' }"
 >
-  <span class="p-text-secondary block mb-5">Update your information.</span>
   @if(visible) {
 
   <form [formGroup]="userForm" (ngSubmit)="saveUser()">
