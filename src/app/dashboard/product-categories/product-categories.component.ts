@@ -15,6 +15,7 @@ import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { DialogModule } from 'primeng/dialog';
 import { InputTextModule } from 'primeng/inputtext';
 import { ConfirmationService, MessageService } from 'primeng/api';
+import { ProgressSpinnerModule } from 'primeng/progressspinner';
 
 @Component({
   selector: 'app-product-categories',
@@ -29,6 +30,7 @@ import { ConfirmationService, MessageService } from 'primeng/api';
     ReactiveFormsModule,
     InputTextModule,
     ConfirmDialogModule,
+    ProgressSpinnerModule,
   ],
   templateUrl: './product-categories.component.html',
   styleUrl: './product-categories.component.css',
@@ -49,7 +51,7 @@ export class ProductCategoriesComponent {
   ) {
     this.productCategoryForm = this.fb.group({
       id: [''],
-      name: ['New Category'],
+      name: [''],
     });
 
     this.columns = [

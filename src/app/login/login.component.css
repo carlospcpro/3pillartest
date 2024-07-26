@@ -2,6 +2,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  background-color: #1d545b;
   height: 100vh;
 }
 
@@ -27,7 +28,7 @@
 .p-field {
   margin-bottom: 1rem;
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1fr;
   align-items: center;
   grid-gap: 1rem;
 }

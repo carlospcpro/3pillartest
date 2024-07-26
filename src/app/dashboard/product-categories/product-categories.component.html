@@ -1,3 +1,15 @@
+@if (!data.length) {
+<p-progressSpinner ariaLabel="loading" />
+} @else {
+<div class="header-section">
+  <h2>Categories</h2>
+  <p-button
+    icon="pi pi-plus"
+    (click)="showDialog()"
+    label="Add productCategory"
+    class="p-button-rounded p-button-success p-mr-2"
+  />
+</div>
 <p-table [value]="data">
   <ng-template pTemplate="header">
     <tr>
@@ -10,7 +22,7 @@
       <td *ngFor="let col of columns">
         {{ rowData[col.field] }}
       </td>
-      <td>
+      <td class="actions">
         <p-button
           icon="pi pi-pencil"
           (click)="showDialog(rowData)"
@@ -28,17 +40,12 @@
   </ng-template>
 </p-table>
 
-<p-button
-  icon="pi pi-plus"
-  (click)="showDialog()"
-  label="Add productCategory"
-  class="p-button-rounded p-button-success p-mr-2"
-/>
+}
 
 <p-confirmDialog />
 
 <p-dialog
-  header="productCategory form"
+  header="Category Form"
   [modal]="true"
   [(visible)]="visible"
   [style]="{ width: '25rem' }"
@@ -46,7 +53,7 @@
   @if(visible) {
 
   <form [formGroup]="productCategoryForm" (ngSubmit)="save()">
-    <div class="flex align-items-center gap-3 mb-3">
+    <div class="flex align-items-center input-container">
       <label for="name" class="font-semibold w-6rem">name</label>
       <input
         pInputText

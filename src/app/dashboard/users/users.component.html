@@ -1,3 +1,15 @@
+@if (!data.length) {
+<p-progressSpinner ariaLabel="loading" />
+} @else {
+<div class="header-section">
+  <h2>Users</h2>
+  <p-button
+    icon="pi pi-plus"
+    (click)="showDialog()"
+    label="Add user"
+    class="p-button-rounded p-button-success p-mr-2"
+  />
+</div>
 <p-table [value]="data">
   <ng-template pTemplate="header">
     <tr>
@@ -10,7 +22,7 @@
       <td *ngFor="let col of columns">
         {{ rowData[col.field] }}
       </td>
-      <td>
+      <td class="actions">
         <p-button
           icon="pi pi-pencil"
           (click)="showDialog(rowData)"
@@ -28,12 +40,7 @@
   </ng-template>
 </p-table>
 
-<p-button
-  icon="pi pi-plus"
-  (click)="showDialog()"
-  label="Add user"
-  class="p-button-rounded p-button-success p-mr-2"
-/>
+}
 
 <p-confirmDialog />
 
@@ -46,8 +53,8 @@
   @if(visible) {
 
   <form [formGroup]="userForm" (ngSubmit)="saveUser()">
-    <div class="flex align-items-center gap-3 mb-3">
-      <label for="name" class="font-semibold w-6rem">name</label>
+    <div class="flex align-items-center input-container">
+      <label for="name" class="font-semibold w-6rem">Name</label>
       <input
         pInputText
         id="name"
@@ -56,7 +63,7 @@
         autocomplete="off"
       />
     </div>
-    <div class="flex align-items-center gap-3 mb-5">
+    <div class="flex align-items-center input-container">
       <label for="email" class="font-semibold w-6rem">Email</label>
       <input
         pInputText

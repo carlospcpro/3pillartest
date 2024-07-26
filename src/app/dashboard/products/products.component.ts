@@ -14,6 +14,7 @@ import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { DialogModule } from 'primeng/dialog';
 import { InputTextModule } from 'primeng/inputtext';
 import { ConfirmationService, MessageService } from 'primeng/api';
+import { ProgressSpinnerModule } from 'primeng/progressspinner';
 
 @Component({
   selector: 'app-products',
@@ -26,6 +27,7 @@ import { ConfirmationService, MessageService } from 'primeng/api';
     ButtonModule,
     FormsModule,
     ReactiveFormsModule,
+    ProgressSpinnerModule,
     InputTextModule,
     ConfirmDialogModule,
   ],
@@ -48,9 +50,9 @@ export class ProductsComponent {
   ) {
     this.productForm = this.fb.group({
       id: [''],
-      name: ['New Product'],
-      category: ['technology'],
-      qty: ['10'],
+      name: [''],
+      category: [''],
+      qty: [''],
     });
 
     this.columns = [

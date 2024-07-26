@@ -5,3 +5,26 @@ body {
   margin: 0;
   font-family: Arial, sans-serif;
 }
+.header-section {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid black;
+}
+
+.actions {
+  display: grid;
+  grid-gap: 0.5rem;
+  grid-template-columns: 1fr 1fr;
+}
+.input-container {
+  display: grid;
+  grid-template-columns: auto auto;
+  grid-gap: 1rem;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+.gap-2 {
+  display: flex;
+  grid-gap: 1rem;
+}

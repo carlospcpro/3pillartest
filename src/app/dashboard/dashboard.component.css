@@ -7,7 +7,9 @@
 /* Barra lateral */
 .sidebar {
   width: 250px;
-  background-color: #333;
+  /* background-color: #333; */
+  background-color: #1d545b;
+
   color: white;
   padding: 20px;
   box-sizing: border-box;
@@ -29,6 +31,13 @@
 .sidebar nav ul li a {
   color: white;
   text-decoration: none;
+  display: block;
+  padding: 0.5rem;
+  background-color: #1a494f;
+  border-radius: 10px;
+  &:hover {
+    background-color: #113136;
+  }
 }
 
 /* Contenido principal */

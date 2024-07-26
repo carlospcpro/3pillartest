@@ -1,3 +1,4 @@
+import { dataChecker } from './../../services/dataChecker.service';
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TableModule } from 'primeng/table';
@@ -14,6 +15,9 @@ import { InputTextModule } from 'primeng/inputtext';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
+import { Store } from '@ngxs/store';
+import { ResetState, SetUser } from 'src/app/states/user.state';
+import { ProgressSpinnerModule } from 'primeng/progressspinner';
 
 @Component({
   selector: 'app-users',
@@ -25,6 +29,7 @@ import { AngularFirestore } from '@angular/fire/compat/firestore';
     DialogModule,
     ButtonModule,
     FormsModule,
+    ProgressSpinnerModule,
     ReactiveFormsModule,
     InputTextModule,
     ConfirmDialogModule,
@@ -37,6 +42,7 @@ export class UsersComponent implements OnInit {
   data: any[] = [];
   userForm!: FormGroup;
   isEditing = false;
+  visible = false;
 
   confirm2(event: Event, rowData: any) {
     this.confirmationService.confirm({
@@ -72,7 +78,9 @@ export class UsersComponent implements OnInit {
     private fb: FormBuilder,
     private confirmationService: ConfirmationService,
     private messageService: MessageService,
-    private firestore: AngularFirestore
+    private firestore: AngularFirestore,
+    private store: Store,
+    private dataChecker: dataChecker
   ) {
     this.columns = [
       { field: 'id', header: 'ID' },
@@ -85,26 +93,48 @@ export class UsersComponent implements OnInit {
       name: ['Juan Carlos'],
       email: ['testjuan@gmail.com'],
     });
+    this.logStore();
   }
-  visible = false;
 
   showDialog(user?: any) {
     if (user) {
       this.isEditing = true;
       this.userForm.setValue(user);
+      this.store.dispatch(new SetUser(user));
     } else {
       this.isEditing = false;
     }
     this.visible = true;
   }
 
+  logStore() {
+    let userTemp: any;
+    const u = this.store
+      .select((state) => state)
+      .subscribe((user) => {
+        userTemp = user.user.user;
+      });
+    if (userTemp) {
+      this.showDialog(userTemp);
+      this.isEditing = true;
+
+      if (u) {
+        u.unsubscribe();
+      }
+    }
+  }
+
   hideDialog() {
     this.visible = false;
     this.userForm.reset();
+    this.resetUserState();
+  }
+
+  resetUserState() {
+    this.store.dispatch(new ResetState());
   }
 
   saveUser() {
-    console.log('this.userForm.value', this.userForm.value);
     if (this.isEditing) {
       this.updateDocument(
         'users',
@@ -116,6 +146,7 @@ export class UsersComponent implements OnInit {
       this.addDocument('users', this.userForm.value);
       this.hideDialog();
     }
+    this.resetUserState();
   }
 
   editUser(user: any) {
@@ -142,8 +173,6 @@ export class UsersComponent implements OnInit {
   }
 
   updateDocument(collectionName: string, id: string, data: any): Promise<void> {
-    console.log(collectionName, id, data);
-
     return this.firestore.collection(collectionName).doc(id).update(data);
   }
 }

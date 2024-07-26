@@ -1,7 +1,5 @@
 import { State, Action, StateContext } from '@ngxs/store';
 import { Injectable } from '@angular/core';
-
-// Define your actions
 export class SetToken {
   static readonly type = '[Auth] Set Token';
   constructor(public token: string) {}
