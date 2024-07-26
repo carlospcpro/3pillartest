@@ -11,7 +11,7 @@ export class AuthService {
   async login(email: string, password: string) {
     try {
       await this.fireauth.signInWithEmailAndPassword(email, password);
-      this.router.navigate(['/home']); // Redirect to home or any other route
+      this.router.navigate(['/home']);
     } catch (error: any) {
       this.error = error.message;
     }

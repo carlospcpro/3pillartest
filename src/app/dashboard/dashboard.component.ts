@@ -7,7 +7,7 @@ import { SidebarModule } from 'primeng/sidebar';
 import { MenuModule } from 'primeng/menu';
 import { TableModule } from 'primeng/table';
 import { PaginatorModule } from 'primeng/paginator';
-import { ButtonModule } from 'primeng/button'; // Para el botón de menú en el header
+import { ButtonModule } from 'primeng/button';
 import { FormsModule } from '@angular/forms';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { Observable } from 'rxjs';
@@ -61,7 +61,7 @@ export class DashboardComponent {
   }
 
   addDocument(collectionName: string, document: any): Promise<void> {
-    const id = this.firestore.createId(); // Generate a unique ID for the document
+    const id = this.firestore.createId();
     return this.firestore.collection(collectionName).doc(id).set(document);
   }
 

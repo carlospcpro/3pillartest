@@ -1,12 +1,9 @@
 import { State, Action, StateContext } from '@ngxs/store';
 import { AddUserAction } from './actions';
-
-// Define your state model
 export interface UsersState {
   value: string;
 }
 
-// Define initial state
 @State<UsersState>({
   name: 'User',
   defaults: {
