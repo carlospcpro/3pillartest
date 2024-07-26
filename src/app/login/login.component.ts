@@ -40,7 +40,7 @@ export class LoginComponent {
         this.username,
         this.password
       );
-      this.router.navigate(['/app']); // Redirect to home or any other route
+      this.router.navigate(['/app']);
     } catch (error: any) {
       this.error = error.message;
     }

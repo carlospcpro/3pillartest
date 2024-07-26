@@ -1,3 +1,4 @@
+import { AuthService } from './../auth.service';
 import { DataService } from './../services/data';
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -10,9 +11,14 @@ import { ButtonModule } from 'primeng/button'; // Para el botón de menú en el 
 import { FormsModule } from '@angular/forms';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { Observable } from 'rxjs';
+import { Router } from '@angular/router';
+import { AuthGuard } from '../services/authguard.service';
+import { AngularFireAuth } from '@angular/fire/compat/auth';
 
 @Component({
   selector: 'app-dashboard',
+
+  providers: [AuthService, AuthGuard, AngularFireAuth],
   standalone: true,
   imports: [
     CommonModule,
@@ -29,7 +35,9 @@ import { Observable } from 'rxjs';
 export class DashboardComponent {
   constructor(
     private firestore: AngularFirestore,
-    private dataService: DataService
+    private dataService: DataService,
+    private AuthService: AuthService,
+    private router: Router
   ) {
     this.getData();
   }
@@ -59,5 +67,9 @@ export class DashboardComponent {
 
   updateDocument(collectionName: string, id: string, data: any): Promise<void> {
     return this.firestore.collection(collectionName).doc(id).update(data);
+  }
+
+  signOut() {
+    this.AuthService.logout();
   }
 }
