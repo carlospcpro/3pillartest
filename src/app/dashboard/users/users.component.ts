@@ -13,6 +13,7 @@ import {
 import { InputTextModule } from 'primeng/inputtext';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { ConfirmationService, MessageService } from 'primeng/api';
+import { AngularFirestore } from '@angular/fire/compat/firestore';
 
 @Component({
   selector: 'app-users',
@@ -36,7 +37,7 @@ export class UsersComponent implements OnInit {
   data: any[] = [];
   userForm!: FormGroup;
 
-  confirm2(event: Event) {
+  confirm2(event: Event, rowData: any) {
     this.confirmationService.confirm({
       target: event.target as EventTarget,
       message: 'Do you want to delete this record?',
@@ -48,6 +49,7 @@ export class UsersComponent implements OnInit {
       rejectIcon: 'none',
 
       accept: () => {
+        this.deleteDocument('users', rowData.id);
         this.messageService.add({
           severity: 'info',
           summary: 'Confirmed',
@@ -68,17 +70,19 @@ export class UsersComponent implements OnInit {
     private dataService: DataService,
     private fb: FormBuilder,
     private confirmationService: ConfirmationService,
-    private messageService: MessageService
+    private messageService: MessageService,
+    private firestore: AngularFirestore
   ) {
     this.columns = [
       { field: 'id', header: 'ID' },
       { field: 'name', header: 'Name' },
       { field: 'email', header: 'email' },
     ];
+
     this.userForm = this.fb.group({
       id: [''],
-      name: [''],
-      email: [''],
+      name: ['Juan Carlos'],
+      email: ['testjuan@gmail.com'],
     });
   }
   visible = false;
@@ -89,7 +93,7 @@ export class UsersComponent implements OnInit {
     if (user) {
       this.userForm.setValue(user);
     } else {
-      this.userForm.reset();
+      // this.userForm.reset();
     }
     this.visible = true;
   }
@@ -99,7 +103,9 @@ export class UsersComponent implements OnInit {
   }
 
   saveUser() {
-    console.log('User saved:', this.userForm?.value);
+    console.log('this.userForm.value', this.userForm.value);
+
+    this.addDocument('users', this.userForm.value);
     this.hideDialog();
   }
 
@@ -114,5 +120,15 @@ export class UsersComponent implements OnInit {
         this.data = userData;
       }
     });
+  }
+
+  deleteDocument(collectionName: string, id: string): Promise<void> {
+    return this.firestore.collection(collectionName).doc(id).delete();
+  }
+
+  addDocument(collectionName: string, document: any): Promise<void> {
+    const id = this.firestore.createId();
+    document.id = id;
+    return this.firestore.collection(collectionName).doc(id).set(document);
   }
 }

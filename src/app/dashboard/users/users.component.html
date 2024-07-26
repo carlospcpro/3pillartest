@@ -20,13 +20,19 @@
         <p-button
           icon="pi pi-trash"
           class="p-button-rounded p-button-danger"
-          (onClick)="confirm2($event)"
+          (onClick)="confirm2($event, rowData)"
           tooltip="Delete"
         />
       </td>
     </tr>
   </ng-template>
 </p-table>
+
+<p-button
+  icon="pi pi-plus"
+  (click)="showDialog()"
+  class="p-button-rounded p-button-success p-mr-2"
+/>
 
 <p-confirmDialog />
 

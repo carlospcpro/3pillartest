@@ -60,8 +60,4 @@ export class DashboardComponent {
   updateDocument(collectionName: string, id: string, data: any): Promise<void> {
     return this.firestore.collection(collectionName).doc(id).update(data);
   }
-
-  deleteDocument(collectionName: string, id: string): Promise<void> {
-    return this.firestore.collection(collectionName).doc(id).delete();
-  }
 }

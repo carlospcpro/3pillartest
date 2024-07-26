@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { DataService } from 'src/app/services/data';
 import { TableModule } from 'primeng/table';
+import { AngularFirestore } from '@angular/fire/compat/firestore';
 
 @Component({
   selector: 'app-products',
@@ -13,7 +14,10 @@ import { TableModule } from 'primeng/table';
 export class ProductsComponent {
   columns: any[] = [];
   data: any[] = [];
-  constructor(private dataService: DataService) {
+  constructor(
+    private dataService: DataService,
+    private firestore: AngularFirestore
+  ) {
     this.dataService.ProductData$.subscribe((prod) => {
       this.data = prod;
     });
@@ -23,5 +27,9 @@ export class ProductsComponent {
       { field: 'qty', header: 'qty' },
       { field: 'category', header: 'category' },
     ];
+  }
+
+  deleteDocument(collectionName: string, id: string): Promise<void> {
+    return this.firestore.collection(collectionName).doc(id).delete();
   }
 }
